@@ -20,6 +20,16 @@ app.get("/users", async (req, res) => {
   }
 });
 
+app.get("/users/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const user = await UserModel.findById(id);
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(404).send(error.message);
+  }
+});
+
 app.post("/users", async (req, res) => {
   try {
     const user = await UserModel.create(req.body);
